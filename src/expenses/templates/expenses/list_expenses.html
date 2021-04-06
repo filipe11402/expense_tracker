@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-dashboard"></i> My Expenses</b></h5>
+  </header>
+
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>{{ count_expenses }}</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Numero de despesas</h4>
+      </div>
+    </div>
+  <div class="w3-quarter">
+    <div class="w3-container w3-orange w3-text-white w3-padding-16">
+       <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>{{ all_users }}</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Users</h4>
+      </div>
+    </div>
+    </div>
+  {% if not request.user.is_staff %}
+  <a class="btn btn-info  btn-sm btn-block" href="{% url 'expenses:create-expense' %}">Nova Despesa</a>
+  {% endif %}
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Utilizador</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Preço</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Apagar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for expense in all_expenses %}
+    <tr>
+      <th scope="row">{{ expense.user }}</th>
+      <td>{{ expense.nome }}</td>
+      <td>{{ expense.amount }}</td>
+     <td><a class="btn btn-sm btn-info" href="{% url 'expenses:edit-expense' expense.id %}">Editar</a></td>
+     <td><a class="btn btn-sm btn-danger" href="{% url 'expenses:delete-expense' expense.id %}">Apagar</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+  <hr>
+  <hr>
+  <div class="w3-container">
+    <h5>General Stats</h5>
+    <p>New Visitors</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-green" style="width:25%">+25%</div>
+    </div>
+
+    <p>New Users</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-orange" style="width:50%">50%</div>
+    </div>
+
+    <p>Bounce Rate</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-red" style="width:75%">75%</div>
+    </div>
+  </div>
+  <hr>
+
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-16 w3-light-grey">
+    <h4>FOOTER</h4>
+    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+  </footer>
+
+  <!-- End page content -->
+</div>
+{% endblock content %}

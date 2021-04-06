@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<p>Tens a certeza que pretendes apagar a despesa {{ expense_to_delete.nome }}
+
+<form action="{% url 'expenses:delete-expense' expense_to_delete.id %}" method="POST">
+	{% csrf_token %}
+
+	<a href="{% url 'expenses:list-expenses' %}">Cancelar</a>
+	<input type="submit" name="Confirmar">
+{% endblock %}

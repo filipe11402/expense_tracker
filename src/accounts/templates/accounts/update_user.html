@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="" method="POST">
+	{% csrf_token %}
+<div class="form-group">
+    <label for="exampleInputEmail1">Username</label>
+    {{ form.username }}
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Email</label>
+    {{ form.email }}
+  </div>
+  {% if request.user == user %}
+  {% else %}
+  <div class="form-check">
+  	{{ form.is_staff.label }}
+    {{ form.is_staff }}
+  </div>
+  {% endif %}
+  <button type="submit" class="btn btn-primary">Atualizar</button>
+</form>
+{% endblock %}
